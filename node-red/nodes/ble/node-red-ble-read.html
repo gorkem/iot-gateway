@@ -1,0 +1,70 @@
+
+<script type="text/x-red" data-template-name="read characteristics">
+   <!-- data-template-name identifies the node type this is for              -->
+
+   <!-- Each of the following divs creates a field in the edit dialog.       -->
+   <!-- Generally, there should be an input for each property of the node.   -->
+   <!-- The for and id attributes identify the corresponding property        -->
+   <!-- (with the 'node-input-' prefix).                                     -->
+   <!-- The available icon classes are defined Twitter Bootstrap glyphicons  -->
+
+    <!-- Limit to service UUIDs -->
+    <div class="form-row">
+        <label for="node-input-serviceUUIDs"><i class="fa fa-tasks"></i> Restrict by Service UUID</label>
+        <input type="text" id="node-input-serviceUUIDs" placeholder="Comma separated list">
+    </div>
+
+    <!-- limit to characteristic UUIDs -->
+    <div class="form-row">
+         <label for="node-input-characteristicUUIDs"><i class="fa fa-tasks"></i> Restrict by characteristic UUID</label>
+        <input type="text" id="node-input-characteristicUUIDs" placeholder="Comma separated list">
+    </div>
+    <div class="form-tips">Leave empty for reading all services & characteristics.</div>
+
+    <!-- By convention, most nodes have a 'name' property. The following div -->
+    <!-- provides the necessary field. Should always be the last option      -->
+
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+</script>
+
+
+<!-- Next, some simple help text is provided for the node.                   -->
+<script type="text/x-red" data-help-name="read characteristics">
+    <p>This node allows scanning for BLE characteristics, restricted if necessary by the services and characteristics they offer.</p>
+    <p>This node will generate one message per characteristic detected according to the node configuration.</p>
+   
+</script>
+
+<!-- Finally, the node type is registered along with all of its properties   -->
+<!-- The example below shows a small subset of the properties that can be set-->
+
+<script type="text/javascript">
+
+    RED.nodes.registerType('read characteristics',{
+        category: 'advanced',      // the palette category
+        color:"#C0DEED",
+        defaults: {             // defines the editable properties of the node
+            characteristicUUIDs: {value:"", validate:RED.validators.regex(/^([a-fA-F0-9]{32}){0,1}(?:,[a-fA-F0-9]{32})*$/)},
+            serviceUUIDs: {value:"", validate:RED.validators.regex(/^([a-fA-F0-9]{32}){0,1}(?:,[a-fA-F0-9]{32})*$/)},
+            name: {value:""}
+        },
+        inputs:1,               // set the number of inputs - only 0 or 1
+        outputs:1,              // set the number of outputs - 0 to n
+        // set the icon (held in icons dir below where you save the node)
+        icon: "bluetooth.png",     // saved in  icons/myicon.png
+        label: function() {     // sets the default label contents
+            if (this.name) {
+                return this.name;
+            } else {
+                return "Read Data";
+            }
+        },
+        labelStyle: function() { // sets the class to apply to the label
+            return this.name ? "node_label_italic" : "";
+        }
+    });
+</script>

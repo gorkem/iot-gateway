@@ -1,0 +1,17 @@
+{
+    "name"          : "node-red-ble-scan",
+    "version"       : "0.2.0",
+    "description"   : "A Node-RED node that uses Noble to interact with BLEs",
+    "dependencies"  : {
+        "noble": ">=0.2.7"
+    },
+
+    "license": "Apache",
+    "keywords": [ "node-red", "noble", "ble", "bluetooth", "scan" ],
+    "node-red"      : {
+        "nodes"     : {
+            "noble": "node-red-ble-scan.js",
+            "ble-services":"node-red-ble-read.js"
+        }
+    }
+}

@@ -1,0 +1,82 @@
+
+
+<script type="text/x-red" data-template-name="lwm2m handler">
+   <!-- data-template-name identifies the node type this is for              -->
+
+   <!-- Each of the following divs creates a field in the edit dialog.       -->
+   <!-- Generally, there should be an input for each property of the node.   -->
+   <!-- The for and id attributes identify the corresponding property        -->
+   <!-- (with the 'node-input-' prefix).                                     -->
+   <!-- The available icon classes are defined Twitter Bootstrap glyphicons  -->
+
+
+
+    <!-- By convention, most nodes have a 'name' property. The following div -->
+    <!-- provides the necessary field. Should always be the last option      -->
+
+    <div class="form-row">
+        <label for="node-input-objectType">Object Type:</label>
+        <input type="text" id="node-input-objectType" placeholder="Object Type">
+    </div>
+    <div class="form-row">
+        <label for="node-input-objectId">Object ID:</label>
+        <input type="text" id="node-input-objectId" placeholder="Object ID">
+    </div>
+    <div class="form-row">
+        <label for="node-input-resourceId">Resource ID:</label>
+        <input type="text" id="node-input-resourceId" placeholder="Resource ID">
+    </div>
+    <div class="form-row">
+        <label>Operation:</label>
+        <input type="checkbox" id="node-input-opTypeRead" style="display: inline-block; width: auto; vertical-align: top;">
+        <label for="node-input-opTypeRead" style="display: inline-block; width: auto; vertical-align: top;">read</label>
+        <input type="checkbox" id="node-input-opTypeWrite" style="display: inline-block; width: auto; vertical-align: top;">
+        <label for="node-input-opTypeWrite" style="display: inline-block; width: auto; vertical-align: top;">write</label>
+        <input type="checkbox" id="node-input-opTypeExecute" style="display: inline-block; width: auto; vertical-align: top;">
+        <label for="node-input-opTypeExecute" style="display: inline-block; width: auto; vertical-align: top;">execute</label>
+    </div>    
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+
+<!-- Next, some simple help text is provided for the node.                   -->
+<script type="text/x-red" data-help-name="lwm2m handler">
+    <p>This node can be used as a handler for the lwm2m requests.</p>
+</script>
+
+<!-- Finally, the node type is registered along with all of its properties   -->
+<!-- The example below shows a small subset of the properties that can be set-->
+
+<script type="text/javascript">
+
+    RED.nodes.registerType('lwm2m handler',{
+        category: 'lwm2m',      // the palette category
+        color:"#5B8FE8",
+        defaults: {             // defines the editable properties of the node
+             name: {value:""},
+             "objectType":{value:"",  validate:RED.validators.number(),required:true },
+             "objectId":{value:"",  validate:RED.validators.number(),required:true },
+             "resourceId":{value:"",  validate:RED.validators.number(),required:true },
+             "opTypeRead":{value:false},
+             "opTypeWrite":{value:false},
+             "opTypeExecute":{value:false}
+        },
+        inputs:0,               // set the number of inputs - only 0 or 1
+        outputs:1,              // set the number of outputs - 0 to n
+        // set the icon (held in icons dir below where you save the node)
+       // icon: "bluetooth.png",     // saved in  icons/myicon.png
+        label: function() {     // sets the default label contents
+            if (this.name) {
+                return this.name;
+            } else {
+                return "LWM2M Handler";
+            }
+        },
+        labelStyle: function() { // sets the class to apply to the label
+            return this.name ? "node_label_italic" : "";
+        }
+    });
+</script>

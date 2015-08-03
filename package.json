@@ -1,0 +1,13 @@
+{
+	"name": "iot-gateway",
+	"version": "0.0.1",
+	"main": "gateway.js",
+	"dependencies": {
+		"noble":"latest",
+		"lwm2m-node-lib":"latest",
+		"node-red":"latest",
+		"express":"latest",
+		"mqtt":"latest",
+		"is-utf8": "*"
+	}
+}
